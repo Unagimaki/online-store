@@ -1,9 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
-
-function ProductsPage() {
-  return <div>Каталог товаров</div>;
-}
+import { ProductsPage } from "@/pages/ProductsPage/ui/ProductsPage";
 
 function CartPage() {
   return <div>Корзина</div>;
