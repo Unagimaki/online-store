@@ -1,5 +1,6 @@
 import { getProducts } from "@/entities/product/api/getProducts";
 import type { ProductType } from "@/entities/product/type";
+import { ProductCard } from "@/entities/product/ui/ProductCard";
 import { useEffect, useState } from "react";
 
 export const ProductsPage = () => {
@@ -25,14 +26,13 @@ export const ProductsPage = () => {
         <section>
             <h1>Products</h1>
             <ul>
-                {data.map(product => (
-                    <li key={product.id}>
-                        <h2>{product.title}</h2>
-                        <p>{product.description}</p>
-                        <p>Price: ${product.price}</p>
-                        <img src={product.imageUrl} alt={product.name} />
-                    </li>
-                ))}
+
+                {
+                    data.map((product) => (
+                        <ProductCard key={product.id} {...product} />
+                    ))  
+                }
+                
             </ul>
         </section>
     )
