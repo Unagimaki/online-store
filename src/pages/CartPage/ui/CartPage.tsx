@@ -1,3 +1,4 @@
+import { CartItem } from "@/entities/cart-item/ui/CartItem";
 import type { RootState } from "@/shared/store";
 import { useSelector } from "react-redux";
 
@@ -9,12 +10,9 @@ export const CartPage = () => {
         <div>
             {
                 items.length > 0 ? (
-                    items.map(item => {
-                        return<div>
-                            <h1>{item.title}</h1>
-                            
-                        </div>
-                    })
+                    items.map((product) => (
+                        <CartItem {...product}/>
+                    ))
                 ) : (
                     <p>Your cart is empty</p>
                 )

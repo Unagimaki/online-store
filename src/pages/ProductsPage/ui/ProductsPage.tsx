@@ -11,7 +11,6 @@ export const ProductsPage = () => {
         setLoading(true)
         getProducts()
         .then(data => {
-            console.log(data);
             setData(data)
         })
         .finally(() => setLoading(false))

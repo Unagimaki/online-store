@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import type { ProductType } from "../type"
 import { addItem, increase } from "@/feature/cart/model/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/shared/store";
 
 export const ProductCard = (product: ProductType) => {
@@ -10,14 +10,9 @@ export const ProductCard = (product: ProductType) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const addToCart = () => {
-    console.log('work');
     dispatch(addItem(product));
     dispatch(increase())
   }
-
-const count = useSelector((s: any) => s.cart.items.length);
-console.log("cart count", count);
-
 
   return (
       <div className="border rounded-lg shadow-sm overflow-hidden flex flex-col">
