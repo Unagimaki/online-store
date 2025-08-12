@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
 import type { ProductType } from "../type"
+import { useDispatch } from "react-redux";
+import { addItem } from "@/feature/cart/model/cartSlice";
 
 export const ProductCard = (product: ProductType) => {
-    const { description, imageUrl, name, price, title, id } = product
+  const { description, imageUrl, name, price, title, id } = product
+
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    dispatch(addItem(product));
+  }
 
   return (
     <Link to={`/product/${id}`}>
@@ -20,7 +28,7 @@ export const ProductCard = (product: ProductType) => {
           </p>
           <div className="mt-auto flex items-center justify-between">
             <span className="text-lg font-bold">{price} ₽</span>
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+            <button onClick={addToCart} className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
               В корзину
             </button>
           </div>
