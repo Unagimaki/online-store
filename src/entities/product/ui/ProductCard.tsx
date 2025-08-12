@@ -1,26 +1,34 @@
 import { Link } from "react-router-dom";
 import type { ProductType } from "../type"
-import { useDispatch } from "react-redux";
-import { addItem } from "@/feature/cart/model/cartSlice";
+import { addItem, increase } from "@/feature/cart/model/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "@/shared/store";
 
 export const ProductCard = (product: ProductType) => {
   const { description, imageUrl, name, price, title, id } = product
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const addToCart = () => {
+    console.log('work');
     dispatch(addItem(product));
+    dispatch(increase())
   }
 
+const count = useSelector((s: any) => s.cart.items.length);
+console.log("cart count", count);
+
+
   return (
-    <Link to={`/product/${id}`}>
       <div className="border rounded-lg shadow-sm overflow-hidden flex flex-col">
-        <img
-          src={imageUrl}
-          alt={title}
-          className="w-full h-48 object-cover"
-          referrerPolicy="no-referrer"
-        />
+          <Link to={`/product/${id}`}>
+            <img
+              src={imageUrl}
+              alt={title}
+              className="w-full h-48 object-cover"
+              referrerPolicy="no-referrer"
+            />
+          </Link>
         <div className="p-4 flex flex-col flex-1">
           <h3 className="text-lg font-semibold mb-1">{title || name}</h3>
           <p className="text-sm text-neutral-600 line-clamp-2 mb-2">
@@ -34,6 +42,5 @@ export const ProductCard = (product: ProductType) => {
           </div>
         </div>
       </div>
-    </Link>
   );
 };

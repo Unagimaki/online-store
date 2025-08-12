@@ -2,10 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import { ProductsPage } from "@/pages/ProductsPage/ui/ProductsPage";
 import { ProductPage } from "@/pages/ProductPage/ui/ProductPage";
-
-function CartPage() {
-  return <div>Корзина</div>;
-}
+import { CartPage } from "@/pages/CartPage/ui/CartPage";
 
 export function AppRouter() {
   return (
