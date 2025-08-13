@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { ProductType } from "../type"
-import { addItem, increase } from "@/feature/cart/model/cartSlice";
+import { addItem } from "@/feature/cart/model/cartSlice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/shared/store";
 
@@ -10,8 +10,7 @@ export const ProductCard = (product: ProductType) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const addToCart = () => {
-    dispatch(addItem(product));
-    dispatch(increase())
+    dispatch(addItem({...product, amount: 1}));
   }
 
   return (
