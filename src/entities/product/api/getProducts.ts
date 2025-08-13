@@ -10,7 +10,6 @@ export async function getProducts({ page, limit }: GetProductsParams): Promise<G
     throw new Error(`Error fetching products: ${res.status}`);
   }
   const items: ProductType[] = await res.json();
-  console.log(items);
   
   // простая эвристика: есть ли следующая страница
   const hasMore = items.length === limit;
