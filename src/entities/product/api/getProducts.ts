@@ -1,11 +1,18 @@
-import { BASE_URL } from "@/shared/api/config"
+import { BASE_URL } from "@/shared/api/config";
+import type { ProductType } from "../type";
 
-export const getProducts = async () => {
-    const response = await fetch(`${BASE_URL}/products`)
+export type GetProductsParams = { page: number; limit: number };
+export type GetProductsResult = { items: ProductType[]; hasMore: boolean };
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch products")
-    }
-
-    return response.json() 
+export async function getProducts({ page, limit }: GetProductsParams): Promise<GetProductsResult> {
+  const res = await fetch(`${BASE_URL}/products?page=${page}&limit=${limit}`);
+  if (!res.ok) {
+    throw new Error(`Error fetching products: ${res.status}`);
+  }
+  const items: ProductType[] = await res.json();
+  console.log(items);
+  
+  // простая эвристика: есть ли следующая страница
+  const hasMore = items.length === limit;
+  return { items, hasMore };
 }

@@ -5,8 +5,6 @@ import type { RootState } from "@/shared/store";
 
 export function Header() {
   const items = useSelector((state: RootState) => state.cart.items.length);
-  const cart = useSelector((state: RootState) => state.cart.items);
-  console.log(cart);
   
   return (
     <header className="border-b bg-white">
@@ -24,15 +22,7 @@ export function Header() {
             {items || 0}
           </span>
         </Link>
-        <DebugCartCounter/>
       </div>
     </header>
   );
-}
-
-export function DebugCartCounter() {
-  const count = useSelector((s: any) => s.cart.items.length);
-  return <div style={{position:'fixed',bottom:8,right:8,background:'#eee',padding:'4px 8px',borderRadius:6}}>
-    cart: {count}
-  </div>;
 }

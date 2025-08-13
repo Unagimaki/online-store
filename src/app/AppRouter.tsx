@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import { ProductsPage } from "@/pages/ProductsPage/ui/ProductsPage";
-import { ProductPage } from "@/pages/ProductPage/ui/ProductPage";
 import { CartPage } from "@/pages/CartPage/ui/CartPage";
+import { ProductPage } from "@/pages/ProductPage/ui/ProductPage";
 
 export function AppRouter() {
   return (
