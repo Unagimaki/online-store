@@ -3,6 +3,8 @@ import { getProducts } from "@/entities/product/api/getProducts";
 import type { ProductType } from "@/entities/product/type";
 import { ProductCard } from "@/entities/product/ui/ProductCard";
 import { Button } from "@/components/ui/button";
+import { useSelector } from "react-redux";
+import { selectCartQtyMap } from "@/feature/cart/model/selectors";
 
 const LIMIT = 3;
 
@@ -12,6 +14,7 @@ export function ProductsPage() {
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const qtyMap = useSelector(selectCartQtyMap);
 
   useEffect(() => {
     setLoading(true);
@@ -19,8 +22,8 @@ export function ProductsPage() {
 
     getProducts({ page, limit: LIMIT })
       .then(({ items, hasMore }) => {
-        setItems(items);
         setHasMore(hasMore);
+        setItems(items);
       })
       .catch(e => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false));
@@ -40,7 +43,7 @@ export function ProductsPage() {
       <h1 className="text-2xl font-bold mb-4">Каталог</h1>
 
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {items.map(p => <ProductCard key={p.id} {...p} />)}
+        {items.map(p => <ProductCard key={p.id} {...p} inCartQty={qtyMap[p.id] ?? 0}/>)}
       </div>
 
       <div className="mt-6 flex gap-2 justify-center">
