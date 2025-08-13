@@ -7,7 +7,7 @@ export const CartPage = () => {
     const items = useSelector((state: RootState) => state.cart.items);
 
     return(
-        <div>
+        <div className="flex gap-15">
             {
                 items.length > 0 ? (
                     items.map((product) => (

@@ -3,7 +3,7 @@ import type { ProductType } from "@/entities/product/type"
 export const CartItem = (product: ProductType) => {
     const {description, price, imageUrl, title} = product
     return(
-      <div className="border rounded-lg shadow-sm overflow-hidden flex flex-col">
+      <div className="size-100 rounded-lg shadow-sm overflow-hidden flex flex-col">
             <img
               src={imageUrl}
               alt={title}
