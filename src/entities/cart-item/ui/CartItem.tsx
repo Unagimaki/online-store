@@ -10,7 +10,7 @@ export const CartItem = (product: CartItemType) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const addToCart = () => {
-      dispatch(addItem({...product, amount: 1}));
+      dispatch(addItem({...product}));
     }
     const removeFromCart = () => {
       dispatch(removeItem(id))
