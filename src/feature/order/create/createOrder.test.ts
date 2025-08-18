@@ -9,7 +9,7 @@ const items: CartItemType[] = [
 ]
 
 describe('createOrder', () => {
-    it('создаеь заказ с товарами и подстчетом общей стоимости', () => {
+    it('создает заказ с товарами и подстчетом общей стоимости', () => {
         const order = createOrder(items);
 
         expect(order?.items).toHaveLength(3)

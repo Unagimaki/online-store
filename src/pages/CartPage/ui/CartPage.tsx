@@ -22,7 +22,7 @@ export const CartPage = () => {
                 {
                     items.length > 0 && (
                         <div className="flex justify-end">
-                            <p>Total: {items.reduce((total, item) => total + item.price, 0)}$</p>
+                            <p>Total: {items.reduce((total, item) => total + item.price, 0)}₽</p>
                         </div>
                     )
                 }

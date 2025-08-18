@@ -6,7 +6,7 @@ export interface CartState {
     items: CartItemType[],
 }
 
-const initialState: CartState = {
+export const initialState: CartState = {
   items: [],
 }
 
