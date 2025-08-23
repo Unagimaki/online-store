@@ -1,13 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
-
-function ProductsPage() {
-  return <div>Каталог товаров</div>;
-}
-
-function CartPage() {
-  return <div>Корзина</div>;
-}
+import { ProductsPage } from "@/pages/ProductsPage/ui/ProductsPage";
+import { CartPage } from "@/pages/CartPage/ui/CartPage";
+import { ProductPage } from "@/pages/ProductPage/ui/ProductPage";
 
 export function AppRouter() {
   return (
@@ -16,6 +11,7 @@ export function AppRouter() {
         <Route element={<Layout />}>
           <Route path="/" element={<ProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
