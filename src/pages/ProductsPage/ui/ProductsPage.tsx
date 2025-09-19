@@ -4,7 +4,7 @@ import type { ProductType } from "@/entities/product/type";
 import { ProductCard } from "@/entities/product/ui/ProductCard";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
-import { selectCartQtyMap } from "@/feature/cart/model/selectors";
+import { selectCartQtyMap } from "@/features/cart/model/selectors";
 
 const LIMIT = 3;
 
@@ -28,6 +28,8 @@ export function ProductsPage() {
       .catch(e => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false));
   }, [page]);
+
+  
 
   if (loading && items.length === 0) return <p>Загрузка…</p>;
   if (error) return (

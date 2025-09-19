@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import type { CartItemType } from "../type"
 import { Plus, Minus } from "lucide-react";
 import type { AppDispatch } from "@/shared/store";
-import { addItem, decreaseItem, removeItem } from "@/feature/cart/model/cartSlice";
+import { addItem, decreaseItem, removeItem } from "@/features/cart/model/cartSlice";
 
 export const CartItem = (product: CartItemType) => {
     const {description, price, imageUrl, title, amount, id} = product

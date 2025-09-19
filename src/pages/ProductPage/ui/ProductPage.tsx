@@ -1,5 +1,5 @@
 import { useProduct } from "@/entities/product/model/useProduct";
-import { addItem } from "@/feature/cart/model/cartSlice";
+import { addItem } from "@/features/cart/model/cartSlice";
 import type { AppDispatch } from "@/shared/store";
 import { useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
