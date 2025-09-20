@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { ProductType } from "../type"
-import { addItem } from "@/feature/cart/model/cartSlice";
+import { addItem } from "@/features/cart/model/cartSlice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/shared/store";
 

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/shared/store";
-import { selectCartCount } from "@/feature/cart/model/selectors";
+import { selectCartCount } from "@/features/cart/model/selectors";
 
 export function Header() {
   const cartCount = useSelector((state: RootState) => selectCartCount(state));

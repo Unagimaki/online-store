@@ -1,14 +1,15 @@
-import cartReducer from "@/feature/cart/model/cartSlice"
-import { configureStore } from "@reduxjs/toolkit"
+import { configureStore } from '@reduxjs/toolkit'
+import cartReducer from '@/features/cart/model/cartSlice'
+import { orderApi } from '@/features/order/api/orderApi' 
 
 export const store = configureStore({
-    reducer: {
-        cart: cartReducer,
-    }
-})
-
-store.subscribe(() => store.getState())
+  reducer: {
+    cart: cartReducer,
+    [orderApi.reducerPath]: orderApi.reducer, 
+  },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(orderApi.middleware), 
+  })
 
 export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
