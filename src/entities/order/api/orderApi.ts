@@ -1,5 +1,6 @@
 import type { CartItemType } from "@/entities/cart-item/type";
 import type { OrderType } from "@/entities/order/type";
+import { BASE_URL } from "@/shared/api/config";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface CreateOrderRequest {
@@ -17,7 +18,7 @@ export interface CreateOrderResponse {
 export const orderApi = createApi({
     reducerPath: 'orderApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'someurl'
+        baseUrl: BASE_URL
     }),
     tagTypes: ['Order'],
     endpoints: (builder) => ({
