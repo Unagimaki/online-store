@@ -3,12 +3,13 @@ import type { ProductType } from "../type"
 import { addItem } from "@/features/cart/model/cartSlice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/shared/store";
-
+import img from '@/assets/no-image.jpg'
+import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
 type ProductCardProps = ProductType & { inCartQty?: number };
 
 export const ProductCard = ({inCartQty, ...product}: ProductCardProps) => {
   const { description, imageUrl, name, price, title, id } = product
-
+  
   const dispatch = useDispatch<AppDispatch>();
   
   const addToCart = () => {
@@ -18,11 +19,10 @@ export const ProductCard = ({inCartQty, ...product}: ProductCardProps) => {
   return (
       <div className="relative border rounded-lg shadow-sm overflow-hidden flex flex-col">
           <Link to={`/product/${id}`}>
-            <img
-              src={imageUrl}
+            <ImageWithFallback
+              src={imageUrl || img}
               alt={title}
               className="w-full h-48 object-cover"
-              referrerPolicy="no-referrer"
             />
           </Link>
         <div className="p-4 flex flex-col flex-1">
