@@ -14,22 +14,22 @@ export const productApi = createApi({
     }),
     tagTypes: ['Products'],
     endpoints: (builder) => ({
-        getAllProducts: builder.query<ProductType[], void>({
-            query: () => ({
-                url: '/products'
-            }),
-            providesTags: ['Products']
-        }),
         getProducts: builder.query<ProductType[], GetProductsParams>({
-            query: (params) => ({
-                url: '/products',
-                params: {
-                    page: params.page,
-                    limit: params.limit
+            query: (args) => {
+                const params: Record<string, number> = {}
+
+                if (args?.page !== null) params.page = args.page
+                if (args?.limit !== null) params.limit = args.limit
+
+                const productParams = Object.keys(params).length ? params : {}
+
+                return {
+                    url: '/products',
+                    ...productParams
                 }
-            }),
-            providesTags: ['Products']
+            }
         }),
+
         getProductById: builder.query<ProductType, string>({
             query: (id) => `/products/${id}`,
             providesTags: (result, error, id) => [{ type: 'Products', id }]
@@ -37,4 +37,4 @@ export const productApi = createApi({
     })
 })
 
-export const { useGetProductsQuery, useGetAllProductsQuery, useGetProductByIdQuery } = productApi
+export const { useGetProductsQuery, useGetProductByIdQuery } = productApi
