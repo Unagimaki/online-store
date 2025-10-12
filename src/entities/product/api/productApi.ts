@@ -17,15 +17,13 @@ export const productApi = createApi({
         getProducts: builder.query<ProductType[], GetProductsParams>({
             query: (args) => {
                 const params: Record<string, number> = {}
-
+                
                 if (args?.page !== null) params.page = args.page
                 if (args?.limit !== null) params.limit = args.limit
-
-                const productParams = Object.keys(params).length ? params : {}
-
+                
                 return {
                     url: '/products',
-                    ...productParams
+                    params,
                 }
             }
         }),
