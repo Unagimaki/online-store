@@ -2,11 +2,11 @@ import type { CartItemType } from "@/entities/cart-item/type";
 import type { ProductType } from "@/entities/product/type";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-export interface CartState {
+interface CartState {
     items: CartItemType[],
 }
 
-export const initialState: CartState = {
+const initialState: CartState = {
   items: [],
 }
 

@@ -1,14 +1,16 @@
 import { CartItem } from "@/entities/cart-item/ui/CartItem";
 import { useCreateOrderMutation } from "@/entities/order/api/orderApi";
 import type { OrderType } from "@/entities/order/type";
-import type { RootState } from "@/shared/store";
-import { useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/shared/store";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { addOrder } from "@/features/orders/model/ordersSlice";
 
 export const CartPage = () => {
     const [createOrder, {isLoading, error, isSuccess, data: orderData}] = useCreateOrderMutation();
     const items = useSelector((state: RootState) => state.cart.items);
+    const dispatch = useDispatch<AppDispatch>()
 
     if (items.length === 0) {
         return (
@@ -36,7 +38,7 @@ export const CartPage = () => {
 
         try {
             const result = await createOrder({order}).unwrap();
-            console.log('Заказ создан:', result);
+            dispatch(addOrder(result))
         } catch (err) {
             console.error('Ошибка создания заказа:', err);
         }

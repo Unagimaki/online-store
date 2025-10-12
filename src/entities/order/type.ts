@@ -4,5 +4,6 @@ export type OrderType = {
     items: CartItemType[],
     totalPrice: number,
     createdAt: string,
-    id: string
+    id: string,
+    status?: string
 }

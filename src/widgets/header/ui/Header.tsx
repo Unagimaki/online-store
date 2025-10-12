@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, ListOrdered } from "lucide-react";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/shared/store";
 import { selectCartCount } from "@/features/cart/model/selectors";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
 
 export function Header() {
   const cartCount = useSelector((state: RootState) => selectCartCount(state));
+  const ordersPageFeature = useFeatureIsOn("OrdersPage");
 
   return (
     <header className="border-b bg-white">
@@ -14,6 +16,13 @@ export function Header() {
         <Link to="/" className="text-xl font-bold">
           MyShop
         </Link>
+
+        {
+          ordersPageFeature &&
+          <Link to="/orders" className="text-lg">
+            <ListOrdered size={24} />
+          </Link>
+        }     
 
         <Link to="/cart" className="relative">
           <ShoppingCart size={24} />
