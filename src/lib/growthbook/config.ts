@@ -14,12 +14,3 @@ export const growthbook = new GrowthBook({
   },
   plugins: [ autoAttributesPlugin() ],
 });
-
-export const initGrowthbook = async () => {
-  try {
-    await growthbook.loadFeatures() // <- вот это подтягивает все флаги с GrowthBook.io
-    console.log("✅ Флаги загружены", growthbook.getFeatures())
-  } catch (error) {
-    console.error("❌ Ошибка загрузки флагов:", error)
-  }
-}
