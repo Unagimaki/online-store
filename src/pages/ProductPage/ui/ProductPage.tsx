@@ -14,6 +14,8 @@ export function ProductPage() {
   // Если id появился (после навигации), перезапрашиваем данные
   useEffect(() => {
     if (id) {
+      console.log('Refetching product data for id:', id);
+      
       refetch();
     }
   }, [id, refetch]);
