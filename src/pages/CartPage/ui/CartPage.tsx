@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 export const CartPage = () => {
     const [createOrder, {isLoading, error, isSuccess, data: orderData}] = useCreateOrderMutation();
     const items = useSelector((state: RootState) => state.cart.items);
-
     if (items.length === 0) {
         return (
             <div className="min-h-screen flex items-center justify-center">
