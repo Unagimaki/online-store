@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { addItem } from "@/features/cart/model/cartSlice";
-import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
+import { ImageWithFallback } from "@/components/ui/imageWithFallback";
 
 export function ProductPage() {
   const { id } = useParams<{ id: string }>();

@@ -4,7 +4,7 @@ import { addItem } from "@/features/cart/model/cartSlice";
 import { useDispatch } from "react-redux";
 import type { AppDispatch } from "@/shared/store";
 import img from '@/assets/no-image.jpg'
-import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
+import { ImageWithFallback } from "@/components/ui/imageWithFallback";
 type ProductCardProps = ProductType & { inCartQty?: number };
 
 export const ProductCard = ({inCartQty, ...product}: ProductCardProps) => {

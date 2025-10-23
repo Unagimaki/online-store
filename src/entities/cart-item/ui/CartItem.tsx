@@ -3,7 +3,7 @@ import type { CartItemType } from "../type";
 import { Plus, Minus, X } from "lucide-react";
 import type { AppDispatch } from "@/shared/store";
 import { addItem, decreaseItem, removeItem } from "@/features/cart/model/cartSlice";
-import { ImageWithFallback } from "@/components/ui/ImageWithFallback";
+import { ImageWithFallback } from "@/components/ui/imageWithFallback";
 
 export const CartItem = (product: CartItemType) => {
     const { description, price, imageUrl, title, amount, id } = product;

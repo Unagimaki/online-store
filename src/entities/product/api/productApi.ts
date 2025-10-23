@@ -32,7 +32,7 @@ export const productApi = createApi({
 
         getProductById: builder.query<ProductType, string>({
             query: (id) => `/products/${id}`,
-            providesTags: (result, error, id) => [{ type: 'Products', id }]
+            providesTags: (_result, _error, id) => [{ type: 'Products', id }]
         })
     })
 })
