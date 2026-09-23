@@ -21,7 +21,7 @@ func NewProductRepo(db *sql.DB) *ProductRepo {
 
 func (r *ProductRepo) GetProducts(ctx context.Context, page, limit int) ([]domain.Product, error) {
 	products := []domain.Product{}
-	rows, err := r.db.QueryContext(ctx, "SELECT id, name, price, category, description, quantity FROM products")
+	rows, err := r.db.QueryContext(ctx, "SELECT id, name, price, category_id, description, quantity FROM products")
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (r *ProductRepo) CreateProduct(ctx context.Context, product domain.Product)
 
 func (r *ProductRepo) GetProductById(ctx context.Context, id int64) (domain.Product, error) {
 	var product domain.Product
-	row := r.db.QueryRowContext(ctx, "SELECT id, name, price, category, description, quantity FROM products WHERE id = $1", id)
+	row := r.db.QueryRowContext(ctx, "SELECT id, name, price, category_id, description, quantity FROM products WHERE id = $1", id)
 	err := row.Scan(
 		&product.ID,
 		&product.Name,
@@ -100,12 +100,12 @@ func (r *ProductRepo) UpdateProduct(ctx context.Context, product domain.Product)
 		SET
 			name = $1,
 			price = $2,
-			category = $3,
+			category_id = $3,
 			description = $4,
 			quantity = $5,
 			updated_at = NOW()
 		WHERE id = $6
-		RETURNING id, name, price, category, description, quantity, updated_at
+		RETURNING id, name, price, category_id, description, quantity, updated_at
 	`
 	row := r.db.QueryRowContext(ctx, query, product.Name, product.Price, product.Category, product.Description, product.Quantity, product.ID)
 	err := row.Scan(

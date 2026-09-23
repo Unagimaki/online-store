@@ -34,9 +34,19 @@ func run() error {
 		return err
 	}
 	db, err := database.NewDb(*cfg)
+
 	if err != nil {
 		return err
 	}
+	defer db.Close()
+
+	redisClient, err := database.NewRedisClient(*cfg)
+
+	if err != nil {
+		return err
+	}
+	defer redisClient.Close()
+
 	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {
 		return err
@@ -56,10 +66,9 @@ func run() error {
 		}
 		log.Println("No new migrations")
 	}
-	defer db.Close()
 
 	productRepo := repository.NewProductRepo(db)
-	productService := service.NewProductService(productRepo)
+	productService := service.NewProductService(productRepo, redisClient)
 	productHandler := handler.NewHandler(productService)
 
 	authRepo := repository.NewAuthRepository(db)
@@ -69,7 +78,14 @@ func run() error {
 
 	router := mux.NewRouter()
 	handler := middleware.LoggingMiddleware(middleware.CorsMiddleware(router))
-	router.HandleFunc("/products", productHandler.HandleProducts)
+	router.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write([]byte("OK"))
+	})
+	router.HandleFunc("/products", productHandler.HandleProducts).Methods(http.MethodGet)
+	router.HandleFunc("/products", productHandler.HandleCreateProduct).Methods(http.MethodPost)
+	router.HandleFunc("/products", productHandler.UpdateProduct).Methods(http.MethodPut)
+	router.HandleFunc("/products", productHandler.DeleteProduct).Methods(http.MethodDelete)
 	router.HandleFunc("/auth/register", authHandler.Register)
 	router.HandleFunc("/auth/login", authHandler.Login)
 

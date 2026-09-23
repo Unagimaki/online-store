@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -19,9 +18,7 @@ type Config struct {
 
 func ReadConfig() (*Config, error) {
 
-	if err := godotenv.Load(); err != nil {
-		return &Config{}, fmt.Errorf("read config error: %w", err)
-	}
+	_ = godotenv.Load()
 
 	return &Config{
 		DSN:            os.Getenv("DSN"),

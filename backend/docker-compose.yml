@@ -1,4 +1,23 @@
 services:
+  backend:
+    build:
+      context: .
+    ports:
+      - 8090:8080
+    environment:
+      HTTP_ADDR: ":8080"
+      DSN: postgres://shop_user:shop_password@postgres:5432/shop_db?sslmode=disable
+      MIGRATIONS_PATH: file://migrations
+      JWT_SECRET: "123"
+      REDIS_ADDR: redis:6379
+      REDIS_PASSWORD: ""
+      REDIS_DB: "0"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
   postgres:
     image: postgres:17
     ports:
@@ -9,6 +28,12 @@ services:
       POSTGRES_DB: shop_db
     volumes:
     - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shop_user -d shop_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
   redis:
     image: redis
     ports:

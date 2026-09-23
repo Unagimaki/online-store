@@ -3,10 +3,12 @@ import { baseQuery } from '../../../shared/api/baseQuery';
 import { PRODUCTS_ENDPOINT } from '../../../shared/api/endpoints';
 
 export interface Product {
-  id: string;
-  title: string;
+  id: number;
+  name: string;
+  category: number;
   description: string;
   price: number;
+  quantity: number;
 }
 
 export const productApi = createApi({
