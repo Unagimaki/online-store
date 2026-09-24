@@ -7,6 +7,7 @@ import (
 	"log"
 	"online-store/internal/domain"
 
+	"math/rand/v2"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -32,6 +33,10 @@ type ProductRepository interface {
 	DeleteProduct(ctx context.Context, id int64) error
 }
 
+func cacheTTL() time.Duration {
+	return time.Minute + time.Duration(rand.IntN(30))*time.Second
+}
+
 func (s *ProductService) GetProducts(ctx context.Context, page int, limit int) ([]domain.Product, error) {
 	var cacheMiss bool = false
 	var cachedProducts []domain.Product
@@ -51,6 +56,8 @@ func (s *ProductService) GetProducts(ctx context.Context, page int, limit int) (
 	} else {
 		log.Println("redis err: ", err)
 	}
+	log.Println("loading products from PostgreSQL")
+	time.Sleep(time.Second)
 	products, err := s.r.GetProducts(ctx, page, limit)
 	if err != nil {
 		return []domain.Product{}, err
@@ -60,7 +67,7 @@ func (s *ProductService) GetProducts(ctx context.Context, page int, limit int) (
 		if err != nil {
 			log.Println("json err: ", err)
 		} else {
-			setErr := s.redis.Set(ctx, "products:all", data, time.Minute).Err()
+			setErr := s.redis.Set(ctx, "products:all", data, cacheTTL()).Err()
 			if setErr != nil {
 				log.Println("redis cache set error: ", setErr)
 			}
